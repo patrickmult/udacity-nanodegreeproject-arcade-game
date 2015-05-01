@@ -97,12 +97,17 @@ var Engine = (function(global) {
         player.update(dt); //added dt as a variable
     }
 
+    // This function will check for collisions between the player and the bugs
+    function checkCollisions () {
+    
+    }
     /* This function initially draws the "game level", it will then call
      * the renderEntities function. Remember, this function is called every
      * game tick (or loop of the game engine) because that's how games work -
      * they are flipbooks creating the illusion of animation but in reality
      * they are just drawing the entire screen over and over.
      */
+
     function render() {
         /* This array holds the relative URL to the image used
          * for that particular row of the game level.
