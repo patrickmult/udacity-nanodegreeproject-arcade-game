@@ -80,7 +80,7 @@ var Engine = (function(global) {
      */
     function update(dt) {
         updateEntities(dt);
-        // checkCollisions();
+        checkCollisions();
     }
 
     /* This is called by the update function  and loops through all of the
@@ -91,15 +91,18 @@ var Engine = (function(global) {
      * render methods.
      */
     function updateEntities(dt) {
-        allEnemies.forEach(function(enemy) {
-            enemy.update(dt);
+        allEnemies.forEach(function(enemyarrayobject) {
+            enemyarrayobject.update(dt);
         });
         player.update(dt); //added dt as a variable
     }
 
     // This function will check for collisions between the player and the bugs
     function checkCollisions () {
-    
+        allEnemies.forEach(function(enemyinarray) {
+            enemyinarray.checkCollisions();
+        });
+
     }
     /* This function initially draws the "game level", it will then call
      * the renderEntities function. Remember, this function is called every

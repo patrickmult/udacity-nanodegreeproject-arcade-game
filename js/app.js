@@ -1,7 +1,10 @@
-
 // Patrick's front end javascript project from Udacity.
 // See https://github.com/udacity/frontend-nanodegree-arcade-game
 // for original files.
+
+function donothing () {
+    // body...
+}
 
 // Enemies our player must avoid
 var Enemy = function(x,y,speed) {
@@ -14,6 +17,8 @@ var Enemy = function(x,y,speed) {
     this.speed = speed;
     this.x = x;
     this.y = y;
+    this.xwidth = 60;
+    this.xheight = 40;
 }
 
 // Update the enemy's position, required method for game
@@ -35,16 +40,41 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 }
 
+//Collision method
 
 
-// Now write your own player class
+Enemy.prototype.checkCollisions = function() {
+    console.log(player);
+    if (this.x < player.x + player.xwidth &&
+    this.x + this.xwidth > player.x &&
+    this.y < player.y + player.xheight &&
+    this.xheight + this.y > player.y) {
+    player.x = 215;
+    player.y = 450;
+} //else {console.log("whhhhhy")}
+}
+/*
+        };
+
+            if (rect1.x < rect2.x + rect2.width &&
+           rect1.x + rect1.width > rect2.x &&
+           rect1.y < rect2.y + rect2.height &&
+           rect1.height + rect1.y > rect2.y) {
+            // collision detected!
+        }
+*/
+
+
+/// Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
 var Player = function () {
     this.sprite = 'images/char-horn-girl.png';
-    this.x = 200;
-    this.y = 400;
+    this.x = 215;
+    this.y = 450;
     this.speed = 20;
+    this.xwidth = 77;
+    this.xheight = 90;
 }
 
 // Required method that updateEntities from the engine file
@@ -63,6 +93,7 @@ Player.prototype.render = function() {
 
 // Takes input from the keyup document listener and runs a
 // simple if else function to determine movment direction.
+
 Player.prototype.handleInput = function(key) {
     if (key === 'left' && this.x > 0) {
         this.x -= 101;
@@ -82,12 +113,12 @@ Player.prototype.handleInput = function(key) {
 
 
 var player = new Player();
-var enemy10 = new Enemy(-100,60,400)
-var enemy11 = new Enemy(200,60,400)
-var enemy2 = new Enemy(50,140,350)
-var enemy30 = new Enemy(100,220,300)
-var enemy31 = new Enemy(400,220,300)
-var allEnemies = [enemy10,enemy11,enemy2,enemy30,enemy31]
+var enemy10 = new Enemy(-100,145,400)
+var enemy11 = new Enemy(200,160,400)
+var enemy2 = new Enemy(50,220,350)
+var enemy30 = new Enemy(100,310,300)
+var enemy31 = new Enemy(400,310,300)
+var allEnemies = [enemy10,enemy2,enemy30]
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
