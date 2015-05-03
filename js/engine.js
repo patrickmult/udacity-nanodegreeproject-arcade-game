@@ -13,7 +13,8 @@
  * the canvas' context (ctx) object globally available to make writing app.js
  * a little simpler to work with.
  */
-var thescore = 0;
+var thescore = 0,
+    highscore = 0;
 
 var Engine = (function(global) {
     /* Predefine the variables we'll be using within this scope,
@@ -103,6 +104,13 @@ var Engine = (function(global) {
     function scoreboard () {
         ctx.font="25px Arial";
         ctx.fillText("Score:" + thescore ,10,50);
+        ctx.font="25px Arial";
+        (function() {
+            if (thescore>=highscore) {
+                highscore = thescore;
+            }
+        })();
+        ctx.fillText("Highscore:" + highscore ,100,50);
     }
 
     function winCondition () {

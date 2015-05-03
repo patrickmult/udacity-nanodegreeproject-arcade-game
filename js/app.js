@@ -124,7 +124,7 @@ Player.prototype.reset = function() {
 Player.prototype.winCondition = function() {
     if (this.y < 100) {
         this.reset();
-        ctx.clearRect(10,30,200,200);
+        ctx.clearRect(10,30,2000,200);
         thescore++;
         (function () {
         allEnemies.forEach(function(enemyinarray) {
