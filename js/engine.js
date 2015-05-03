@@ -13,6 +13,7 @@
  * the canvas' context (ctx) object globally available to make writing app.js
  * a little simpler to work with.
  */
+var thescore = 0;
 
 var Engine = (function(global) {
     /* Predefine the variables we'll be using within this scope,
@@ -81,6 +82,8 @@ var Engine = (function(global) {
     function update(dt) {
         updateEntities(dt);
         checkCollisions();
+        winCondition();
+        scoreboard();
     }
 
     /* This is called by the update function  and loops through all of the
@@ -95,6 +98,15 @@ var Engine = (function(global) {
             enemyarrayobject.update(dt);
         });
         player.update(dt); //added dt as a variable
+    }
+
+    function scoreboard () {
+        ctx.font="25px Arial";
+        ctx.fillText("Score:" + thescore ,10,50);
+    }
+
+    function winCondition () {
+        player.winCondition();
     }
 
     // This function will check for collisions between the player and the bugs
@@ -192,4 +204,5 @@ var Engine = (function(global) {
      * from within their app.js files.
      */
     global.ctx = ctx;
+    global.thescore = thescore;
 })(this);

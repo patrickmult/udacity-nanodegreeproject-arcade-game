@@ -6,8 +6,10 @@ function donothing () {
     // body...
 }
 
+
+
 // Enemies our player must avoid
-var Enemy = function(x,y,speed) {
+var Enemy = function(x,y,speed,basespeed) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
@@ -15,6 +17,7 @@ var Enemy = function(x,y,speed) {
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
     this.speed = speed;
+    this.basespeed = basespeed;
     this.x = x;
     this.y = y;
     this.xwidth = 60;
@@ -44,15 +47,22 @@ Enemy.prototype.render = function() {
 
 
 Enemy.prototype.checkCollisions = function() {
-    console.log(player);
     if (this.x < player.x + player.xwidth &&
     this.x + this.xwidth > player.x &&
     this.y < player.y + player.xheight &&
     this.xheight + this.y > player.y) {
-    player.x = 215;
-    player.y = 450;
+        player.reset();
+        ctx.clearRect(10,30,200,200);
+        thescore = 0;
+        //anonymous function that resets speed of all enemies on death
+        (function () {
+        allEnemies.forEach(function(enemyinarray) {
+            enemyinarray.speed = enemyinarray.basespeed;
+        });
+        })();
 } //else {console.log("whhhhhy")}
 }
+
 /*
         };
 
@@ -95,7 +105,7 @@ Player.prototype.render = function() {
 // simple if else function to determine movment direction.
 
 Player.prototype.handleInput = function(key) {
-    if (key === 'left' && this.x > 0) {
+    if (key === 'left' && this.x > 60) {
         this.x -= 101;
     } else if (key === 'right' && this.x < 395) {
         this.x += 101;
@@ -106,18 +116,34 @@ Player.prototype.handleInput = function(key) {
     }
 };
 
+Player.prototype.reset = function() {
+    this.x = 215;
+    this.y = 450; 
+};
 
+Player.prototype.winCondition = function() {
+    if (this.y < 100) {
+        this.reset();
+        ctx.clearRect(10,30,200,200);
+        thescore++;
+        (function () {
+        allEnemies.forEach(function(enemyinarray) {
+            enemyinarray.speed += 20;
+        });
+        })();
+    }
+};
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
 
 var player = new Player();
-var enemy10 = new Enemy(-100,145,400)
-var enemy11 = new Enemy(200,160,400)
-var enemy2 = new Enemy(50,220,350)
-var enemy30 = new Enemy(100,310,300)
-var enemy31 = new Enemy(400,310,300)
+var enemy10 = new Enemy(-100,145,400,400)
+var enemy11 = new Enemy(200,160,400,400)
+var enemy2 = new Enemy(50,220,350,350)
+var enemy30 = new Enemy(100,310,300,300)
+var enemy31 = new Enemy(400,310,300,300)
 var allEnemies = [enemy10,enemy2,enemy30]
 
 // This listens for key presses and sends the keys to your
