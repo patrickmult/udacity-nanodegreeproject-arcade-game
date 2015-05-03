@@ -6,4 +6,4 @@ To run: Clone the repo and open index.html. Use they keyboard arrow keys for mov
 
 Scoreboard resets on death but tracks highschores, and the difficulty ramps each time you get a point. Good luck!
 
-To-Do: Add some music & sound effects. Additional commenting, redaction, and readability
+To-Do: Add some music & sound effects.
