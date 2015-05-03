@@ -110,7 +110,7 @@ var Engine = (function(global) {
                 highscore = thescore;
             }
         })();
-        ctx.fillText("Highscore:" + highscore ,100,50);
+        ctx.fillText("Highscore:" + highscore ,350,50);
     }
 
     function winCondition () {

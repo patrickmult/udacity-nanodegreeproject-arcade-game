@@ -1,12 +1,14 @@
 // Patrick's front end javascript project from Udacity.
 // See https://github.com/udacity/frontend-nanodegree-arcade-game
-// for original files.
+// for original source files.
+
+// Meaningful additions include hit detection, player movement, win condition, scoreboard,
+// ramping difficulty. All done through object orientation re the psuedo
+// classical method. 
 
 function donothing () {
     // body...
 }
-
-
 
 // Enemies our player must avoid
 var Enemy = function(x,y,speed,basespeed) {
@@ -44,14 +46,13 @@ Enemy.prototype.render = function() {
 }
 
 //Collision method
-
-
 Enemy.prototype.checkCollisions = function() {
     if (this.x < player.x + player.xwidth &&
     this.x + this.xwidth > player.x &&
     this.y < player.y + player.xheight &&
     this.xheight + this.y > player.y) {
         player.reset();
+        //clears and resets scoreboard
         ctx.clearRect(10,30,200,200);
         thescore = 0;
         //anonymous function that resets speed of all enemies on death
@@ -103,7 +104,6 @@ Player.prototype.render = function() {
 
 // Takes input from the keyup document listener and runs a
 // simple if else function to determine movment direction.
-
 Player.prototype.handleInput = function(key) {
     if (key === 'left' && this.x > 60) {
         this.x -= 101;
@@ -116,16 +116,19 @@ Player.prototype.handleInput = function(key) {
     }
 };
 
+// Player position start reset method
 Player.prototype.reset = function() {
     this.x = 215;
     this.y = 450; 
 };
 
+// Win condition method
 Player.prototype.winCondition = function() {
     if (this.y < 100) {
         this.reset();
         ctx.clearRect(10,30,2000,200);
         thescore++;
+        // Increases the speed of all enemies with each 'win'
         (function () {
         allEnemies.forEach(function(enemyinarray) {
             enemyinarray.speed += 20;
@@ -133,6 +136,7 @@ Player.prototype.winCondition = function() {
         })();
     }
 };
+
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
